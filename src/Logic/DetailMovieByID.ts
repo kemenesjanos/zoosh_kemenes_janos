@@ -1,20 +1,18 @@
 import { Movie } from "../Model/Movie";
 const fetch = require("node-fetch");
 var express = require("express");
+var xml2js = require('xml2js');
 
-export async function DetailMovieByID(title: string): Promise<Movie[] | undefined> {
-  const searchMoviesQuery =
+
+export async function GetMovieByID(ID: string): Promise<Movie | undefined> {
+  const getMovieQuery =
     `
-    query SearchMovies {
-      searchMovies(query: "` +
-    title +
-    `") {
-          id
-          score
-          genres{name}
-          name
-        }
+    query getMovie {
+      movie(id: `+ID+`) {
+        id
+        name
       }
+    }
       `;
 
   try {
@@ -24,28 +22,36 @@ export async function DetailMovieByID(title: string): Promise<Movie[] | undefine
         "content-type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify({
-        query: searchMoviesQuery,
+        query: getMovieQuery,
       }),
     });
     let resText = await res.text();
-    let data = JSON.parse(resText).data.searchMovies;
+    let data = JSON.parse(resText).data.movie;
 
-    let movies: Movie[] = [];
+    let movie = new Movie(data.id,data.name);
 
-    data.forEach(
-      (movie: {
-        id: string;
-        name: string;
-        genres: { name: string };
-        score: number;
-      }) => {
-        movies.push(
-          new Movie(movie.id, movie.name, movie.genres.name, movie.score)
-        );
+    
+
+    return movie;
+  } catch (error) {
+    console.log("An error occured during the search. Check your internet connection!");
+  }
+}
+
+export async function GetWikiSummery(title: string): Promise<string | undefined> {
+  try {
+    let res = await fetch("https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles="+title, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
       }
-    );
+    });
+    let json = await res.text();
+    json = JSON.parse(json);
+    json = Object.values(json.query.pages)[0]
+    json = json.extract;
 
-    return movies;
+    return json;
   } catch (error) {
     console.log("An error occured during the search. Check your internet connection!");
   }
