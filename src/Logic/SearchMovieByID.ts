@@ -2,13 +2,13 @@ import { Movie } from "../Model/Movie";
 const fetch = require("node-fetch");
 var express = require("express");
 
-export async function SearchMoviesByID(title: string): Promise<Movie[]> {
-    const searchMoviesQuery =
-      `
+export async function SearchMoviesByID(title: string): Promise<Movie[] | undefined> {
+  const searchMoviesQuery =
+    `
     query SearchMovies {
       searchMovies(query: "` +
-      title +
-      `") {
+    title +
+    `") {
           id
           score
           genres{name}
@@ -16,7 +16,8 @@ export async function SearchMoviesByID(title: string): Promise<Movie[]> {
         }
       }
       `;
-  
+
+  try {
     let res = await fetch("https://tmdb.sandbox.zoosh.ie/dev/graphql", {
       method: "POST",
       headers: {
@@ -27,11 +28,10 @@ export async function SearchMoviesByID(title: string): Promise<Movie[]> {
       }),
     });
     let resText = await res.text();
-  
     let data = JSON.parse(resText).data.searchMovies;
-  
+
     let movies: Movie[] = [];
-  
+
     data.forEach(
       (movie: {
         id: string;
@@ -44,6 +44,9 @@ export async function SearchMoviesByID(title: string): Promise<Movie[]> {
         );
       }
     );
-  
+
     return movies;
+  } catch (error) {
+    console.log("An error occured during the search. Check your internet connection!");
   }
+}

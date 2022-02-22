@@ -1,10 +1,9 @@
 import { Movie } from "../src/Model/Movie";
 import { SearchMoviesByID } from "./Logic/SearchMovieByID";
 
-
-SearchMoviesByID("karate").then((res) => {
-  if (res.length != 0) {
-    res.forEach((movie: Movie) => {
+SearchMoviesByID("karate").then((res?) => {
+  if (res?.length != 0) {
+    res?.forEach((movie: Movie) => {
       console.log(movie.title);
     });
   } else {
