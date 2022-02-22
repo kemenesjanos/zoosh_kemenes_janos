@@ -1,11 +1,13 @@
 import { Movie } from "../src/Model/Movie";
-import { SearchMoviesByID } from "./Logic/SearchMovieByID";
+import { SearchMoviesByTitle } from "./Logic/SearchMovieByTitle";
 
-SearchMoviesByID("karate").then((res?) => {
+SearchMoviesByTitle("karate").then((res?) => {
   if (res?.length != 0) {
+      let structDatas: {title:string, id: string, category?: string, score?: number}[] = [];
     res?.forEach((movie: Movie) => {
-      console.log(movie.title);
+        structDatas.push({title: movie.title, id: movie.id, category: movie.category, score: movie.score})
     });
+    console.table(structDatas);
   } else {
     console.log("No movies found!");
   }
