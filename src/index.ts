@@ -1,4 +1,23 @@
-import express from 'express';
-import { Movie } from '../src/Model/Movie';
+import { Movie } from "../src/Model/Movie";
+import { SearchMoviesByID } from "./Logic/SearchMovieByID";
 
-const app = express();
+
+SearchMoviesByID("karate").then((res) => {
+  if (res.length != 0) {
+    res.forEach((movie: Movie) => {
+      console.log(movie.title);
+    });
+  } else {
+    console.log("No movies found!");
+  }
+});
+
+// const readline = require("readline").createInterface({
+//   input: process.stdin,
+//   output: process.stdout,
+// });
+
+// readline.question("Who are you?", (name: any) => {
+//   console.log(`Hey there ${name}!`);
+//   readline.close();
+// });
