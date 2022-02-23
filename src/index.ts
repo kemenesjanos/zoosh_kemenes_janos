@@ -1,6 +1,6 @@
 import { Movie } from "../src/Model/Movie";
 import { SearchMoviesByTitle } from "./Logic/SearchMovieByTitle";
-import { GetMovieByID, GetWikiSummery } from "./Logic/DetailMovieByID"
+import { GetLinks } from "./Logic/DetailMovieByID";
 
 // SearchMoviesByTitle("karate").then((res?) => {
 //   if (res?.length != 0) {
@@ -14,13 +14,14 @@ import { GetMovieByID, GetWikiSummery } from "./Logic/DetailMovieByID"
 //   }
 // });
 
-GetMovieByID("158496").then((res?) => {
-      console.log(res?.title);
-});
-
-GetWikiSummery("The Karate Kid").then( (res: string | undefined) => { console.log(res)});
+//GetWikiSummery("Harry Potter").then( (res: {sum: string, wikiLink: string, imdbLink: string} | undefined) => { res? console.log(res.sum): console.log("Movie article not found!")});
 
 
+GetLinks("Harry Potter").then(  
+  (res: { imdbLink: string; wikiLink: string } | undefined) => {
+    console.log(res?.imdbLink);
+  }
+);
 
 // const readline = require("readline").createInterface({
 //   input: process.stdin,
