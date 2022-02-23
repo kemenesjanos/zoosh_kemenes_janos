@@ -1,6 +1,7 @@
 import { Movie } from "../src/Model/Movie";
 import { SearchMoviesByTitle } from "./Logic/SearchMovieByTitle";
 import { GetLinks } from "./Logic/DetailMovieByID";
+import { GetSimilarMoviesByID } from "./Logic/GetSimilarMoviesByID"
 
 // SearchMoviesByTitle("karate").then((res?) => {
 //   if (res?.length != 0) {
@@ -16,12 +17,15 @@ import { GetLinks } from "./Logic/DetailMovieByID";
 
 //GetWikiSummery("Harry Potter").then( (res: {sum: string, wikiLink: string, imdbLink: string} | undefined) => { res? console.log(res.sum): console.log("Movie article not found!")});
 
+GetSimilarMoviesByID("10734").then((res: Movie[] | undefined) => {
+    console.log(res ? res[0].title : "alma");
+})
 
-GetLinks("Harry Potter").then(  
-  (res: { imdbLink: string; wikiLink: string } | undefined) => {
-    console.log(res?.imdbLink);
-  }
-);
+// GetLinks("Harry Potter").then(  
+//   (res: { imdbLink: string; wikiLink: string } | undefined) => {
+//     console.log(res?.imdbLink);
+//   }
+// );
 
 // const readline = require("readline").createInterface({
 //   input: process.stdin,

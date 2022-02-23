@@ -1,6 +1,5 @@
 import { Movie } from "../Model/Movie";
 const fetch = require("node-fetch");
-var express = require("express");
 
 export async function SearchMoviesByTitle(title: string): Promise<Movie[] | undefined> {
   const searchMoviesQuery =

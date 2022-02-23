@@ -1,6 +1,5 @@
 import { Movie } from "../Model/Movie";
 const fetch = require("node-fetch");
-var express = require("express");
 var xml2js = require("xml2js");
 
 export async function GetDetailMovieByID(
@@ -9,8 +8,8 @@ export async function GetDetailMovieByID(
   const movie = await GetMovieByID(ID);
   if (movie) {
     const sum = GetWikiSummery(movie?.title);
-    let wikiLink =
-      "https://en.wikipedia.org/wiki/" + movie?.title.replace(" ", "_");
+    const links = GetLinks(movie.title);
+
   } else {
     return undefined;
   }
