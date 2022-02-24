@@ -2,7 +2,7 @@
 
 Backend to handle movies.
 
-<img src="Images/Related.png" width="800">
+<img src="images/Related.png" width="800">
 
 ## Features
 
