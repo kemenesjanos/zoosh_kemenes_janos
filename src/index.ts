@@ -98,35 +98,3 @@ async function ConsoleGetRelatedMoviesByID() {
     console.log("Wrong input!");
   }
 }
-
-// SearchMoviesByTitle("karate").then((res?) => {
-//   if (res?.length != 0) {
-//       let structDatas: {title:string, id: string, category?: string, score?: number}[] = [];
-//     res?.forEach((movie: Movie) => {
-//         structDatas.push({title: movie.title, id: movie.id, category: movie.category, score: movie.score})
-//     });
-//     console.table(structDatas);
-//   } else {
-//     console.log("No movies found!");
-//   }
-// });
-
-//GetWikiSummery("Harry Potter").then( (res: {sum: string, wikiLink: string, imdbLink: string} | undefined) => { res? console.log(res.sum): console.log("Movie article not found!")});
-
-// GetSimilarMoviesByID("10734").then((res: Movie[] | undefined) => {
-//       if (res?.length != 0) {
-//       let structDatas: {title:string, id: string}[] = [];
-//     res?.forEach((movie: Movie) => {
-//         structDatas.push({title: movie.title, id: movie.id})
-//     });
-//     console.table(structDatas);
-//   } else {
-//     console.log("No similar movies found!");
-//   }
-// })
-
-// GetLinks("Harry Potter").then(
-//   (res: { imdbLink: string; wikiLink: string } | undefined) => {
-//     console.log(res?.imdbLink);
-//   }
-// );
