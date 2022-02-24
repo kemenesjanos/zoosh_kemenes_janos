@@ -35,8 +35,7 @@ export async function GetSimilarMoviesByID(
     return movies;
   } catch (error) {
     console.log(
-      "An error occured during the search. Check your internet connection!"
+      
     );
-    throw error;
   }
 }

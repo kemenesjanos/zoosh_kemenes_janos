@@ -7,10 +7,21 @@ export async function GetDetailMovieByID(
 ): Promise<{ sum: string; wikiLink: string; imdbLink: string } | undefined> {
   const movie = await GetMovieByID(ID);
   if (movie) {
-    const sum = GetWikiSummery(movie?.title);
-    const links = GetLinks(movie.title);
+    const sumP = GetWikiSummery(movie.title);
+    const linksP = GetLinks(movie.title);
 
+    const sum = await sumP;
+    const links = await linksP;
+
+    if(sum && links){
+      return {sum: sum, wikiLink: links.wikiLink, imdbLink: links.imdbLink}
+    }
+    else{
+      console.log('Cannot find id!');
+      return undefined;
+    }
   } else {
+    console.log('Cannot show details!');
     return undefined;
   }
 }
@@ -45,9 +56,7 @@ async function GetMovieByID(ID: string): Promise<Movie | undefined> {
 
     return movie;
   } catch (error) {
-    console.log(
-      "An error occured during the search. Check your internet connection!"
-    );
+    
   }
 }
 
@@ -76,7 +85,7 @@ async function GetWikiSummery(title: string): Promise<string | undefined> {
   }
 }
 
-export async function GetLinks(
+async function GetLinks(
   title: string
 ): Promise<{ imdbLink: string; wikiLink: string } | undefined> {
   try {
